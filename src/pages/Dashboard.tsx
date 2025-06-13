@@ -7,6 +7,7 @@ import { ActivePositions } from "@/components/trading/ActivePositions";
 import { TradingChart } from "@/components/trading/TradingChart";
 import { RecentTrades } from "@/components/trading/RecentTrades";
 import { RiskMetrics } from "@/components/trading/RiskMetrics";
+import { TradingControls } from "@/components/trading/TradingControls";
 
 const Dashboard = () => {
   return (
@@ -21,7 +22,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-              <span className="text-sm text-muted-foreground">Live Trading Active</span>
+              <span className="text-sm text-muted-foreground">System Online</span>
             </div>
           </div>
         </div>
@@ -30,14 +31,15 @@ const Dashboard = () => {
         <PortfolioOverview />
 
         {/* Main Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Trading Chart - Takes up 2 columns */}
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Trading Chart - Takes up 3 columns */}
+          <div className="lg:col-span-3">
             <TradingChart />
           </div>
           
-          {/* Risk Metrics */}
+          {/* Controls and Risk - Takes up 1 column */}
           <div className="space-y-6">
+            <TradingControls />
             <RiskMetrics />
           </div>
         </div>
