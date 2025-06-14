@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,6 +13,7 @@ import { PaperTradingSimulation } from "@/components/trading/PaperTradingSimulat
 import { DataVisualization } from "@/components/trading/DataVisualization";
 import { TradeLoggingDashboard } from "@/components/trading/TradeLoggingDashboard";
 import { TradingViewIntegration } from "@/components/trading/TradingViewIntegration";
+import { StrategyManagement } from "@/components/trading/StrategyManagement";
 
 const Dashboard = () => {
   return (
@@ -33,8 +35,9 @@ const Dashboard = () => {
 
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="live" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="live">Live Trading</TabsTrigger>
+            <TabsTrigger value="strategies">Strategies</TabsTrigger>
             <TabsTrigger value="charts">Live Charts</TabsTrigger>
             <TabsTrigger value="simulation">Simulation</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
@@ -74,6 +77,10 @@ const Dashboard = () => {
                 <RecentTrades />
               </TabsContent>
             </Tabs>
+          </TabsContent>
+
+          <TabsContent value="strategies" className="mt-6">
+            <StrategyManagement />
           </TabsContent>
 
           <TabsContent value="charts" className="mt-6">
