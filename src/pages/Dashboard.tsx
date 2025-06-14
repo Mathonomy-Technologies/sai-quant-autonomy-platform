@@ -8,6 +8,10 @@ import { TradingChart } from "@/components/trading/TradingChart";
 import { RecentTrades } from "@/components/trading/RecentTrades";
 import { RiskMetrics } from "@/components/trading/RiskMetrics";
 import { TradingControls } from "@/components/trading/TradingControls";
+import { BacktestingInterface } from "@/components/trading/BacktestingInterface";
+import { PaperTradingSimulation } from "@/components/trading/PaperTradingSimulation";
+import { DataVisualization } from "@/components/trading/DataVisualization";
+import { TradeLoggingDashboard } from "@/components/trading/TradeLoggingDashboard";
 
 const Dashboard = () => {
   return (
@@ -27,36 +31,73 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Portfolio Overview */}
-        <PortfolioOverview />
-
-        {/* Main Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Trading Chart - Takes up 3 columns */}
-          <div className="lg:col-span-3">
-            <TradingChart />
-          </div>
-          
-          {/* Controls and Risk - Takes up 1 column */}
-          <div className="space-y-6">
-            <TradingControls />
-            <RiskMetrics />
-          </div>
-        </div>
-
-        {/* Positions and Trades */}
-        <Tabs defaultValue="positions" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="positions">Active Positions</TabsTrigger>
-            <TabsTrigger value="trades">Recent Trades</TabsTrigger>
+        {/* Main Dashboard Tabs */}
+        <Tabs defaultValue="live" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="live">Live Trading</TabsTrigger>
+            <TabsTrigger value="simulation">Simulation</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
           </TabsList>
-          
-          <TabsContent value="positions" className="mt-6">
-            <ActivePositions />
+
+          <TabsContent value="live" className="mt-6 space-y-6">
+            {/* Portfolio Overview */}
+            <PortfolioOverview />
+
+            {/* Main Dashboard Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+              {/* Trading Chart - Takes up 3 columns */}
+              <div className="lg:col-span-3">
+                <TradingChart />
+              </div>
+              
+              {/* Controls and Risk - Takes up 1 column */}
+              <div className="space-y-6">
+                <TradingControls />
+                <RiskMetrics />
+              </div>
+            </div>
+
+            {/* Positions and Trades */}
+            <Tabs defaultValue="positions" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="positions">Active Positions</TabsTrigger>
+                <TabsTrigger value="trades">Recent Trades</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="positions" className="mt-6">
+                <ActivePositions />
+              </TabsContent>
+              
+              <TabsContent value="trades" className="mt-6">
+                <RecentTrades />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
-          
-          <TabsContent value="trades" className="mt-6">
-            <RecentTrades />
+
+          <TabsContent value="simulation" className="mt-6">
+            <Tabs defaultValue="backtesting" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="backtesting">Backtesting</TabsTrigger>
+                <TabsTrigger value="paper">Paper Trading</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="backtesting" className="mt-6">
+                <BacktestingInterface />
+              </TabsContent>
+              
+              <TabsContent value="paper" className="mt-6">
+                <PaperTradingSimulation />
+              </TabsContent>
+            </Tabs>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="mt-6">
+            <DataVisualization />
+          </TabsContent>
+
+          <TabsContent value="reports" className="mt-6">
+            <TradeLoggingDashboard />
           </TabsContent>
         </Tabs>
       </div>
