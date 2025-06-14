@@ -10,7 +10,7 @@ import { FileText, Download, Filter, Calendar, TrendingUp, TrendingDown } from "
 
 export const TradeLoggingDashboard = () => {
   const [filterSymbol, setFilterSymbol] = useState("");
-  const [filterStrategy, setFilterStrategy] = useState("");
+  const [filterStrategy, setFilterStrategy] = useState("all");
   const [dateRange, setDateRange] = useState("today");
 
   const tradeLog = [
@@ -81,7 +81,7 @@ export const TradeLoggingDashboard = () => {
 
   const filteredTrades = tradeLog.filter(trade => {
     const symbolMatch = !filterSymbol || trade.symbol.toLowerCase().includes(filterSymbol.toLowerCase());
-    const strategyMatch = !filterStrategy || trade.strategy === filterStrategy;
+    const strategyMatch = filterStrategy === "all" || trade.strategy === filterStrategy;
     return symbolMatch && strategyMatch;
   });
 
@@ -123,7 +123,7 @@ export const TradeLoggingDashboard = () => {
                     <SelectValue placeholder="Filter by strategy" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Strategies</SelectItem>
+                    <SelectItem value="all">All Strategies</SelectItem>
                     <SelectItem value="Momentum">Momentum</SelectItem>
                     <SelectItem value="Mean Reversion">Mean Reversion</SelectItem>
                     <SelectItem value="Breakout">Breakout</SelectItem>
