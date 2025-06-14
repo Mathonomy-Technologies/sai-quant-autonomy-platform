@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,7 +16,9 @@ export const TradingViewIntegration = () => {
     { value: 'NASDAQ:GOOGL', label: 'Alphabet Inc. (GOOGL)' },
     { value: 'NASDAQ:MSFT', label: 'Microsoft Corporation (MSFT)' },
     { value: 'NASDAQ:TSLA', label: 'Tesla Inc. (TSLA)' },
-    { value: 'NYSE:SPY', label: 'SPDR S&P 500 ETF (SPY)' },
+    { value: 'AMEX:SPY', label: 'S&P 500 ETF (SPY)' },
+    { value: 'NASDAQ:QQQ', label: 'Nasdaq 100 ETF (QQQ)' },
+    { value: 'AMEX:IWM', label: 'Russell 2000 ETF (IWM)' },
     { value: 'BINANCE:BTCUSDT', label: 'Bitcoin/USDT (BTCUSDT)' },
     { value: 'BINANCE:ETHUSDT', label: 'Ethereum/USDT (ETHUSDT)' }
   ];
@@ -62,6 +63,13 @@ export const TradingViewIntegration = () => {
                 </SelectContent>
               </Select>
             </div>
+          </div>
+          
+          <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
+            <p className="text-sm text-amber-700">
+              <strong>Note:</strong> Some symbols may be restricted in TradingView's free widgets. 
+              For full access to all symbols including direct S&P 500 index data, consider upgrading to TradingView's paid plan.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -136,23 +144,23 @@ export const TradingViewIntegration = () => {
                     __html: JSON.stringify({
                       "symbols": [
                         {
-                          "proName": "FOREXCOM:SPXUSD",
-                          "title": "S&P 500"
+                          "proName": "AMEX:SPY",
+                          "title": "S&P 500 ETF"
                         },
                         {
-                          "proName": "FOREXCOM:NSXUSD",
-                          "title": "US 100"
+                          "proName": "NASDAQ:QQQ",
+                          "title": "Nasdaq 100 ETF"
                         },
                         {
                           "proName": "FX_IDC:EURUSD",
                           "title": "EUR to USD"
                         },
                         {
-                          "proName": "BITSTAMP:BTCUSD",
+                          "proName": "BINANCE:BTCUSD",
                           "title": "Bitcoin"
                         },
                         {
-                          "proName": "BITSTAMP:ETHUSD",
+                          "proName": "BINANCE:ETHUSD",
                           "title": "Ethereum"
                         }
                       ],
@@ -210,28 +218,28 @@ export const TradingViewIntegration = () => {
                           "title": "Indices",
                           "symbols": [
                             {
-                              "s": "FOREXCOM:SPXUSD",
-                              "d": "S&P 500"
+                              "s": "AMEX:SPY",
+                              "d": "S&P 500 ETF"
                             },
                             {
-                              "s": "FOREXCOM:NSXUSD",
-                              "d": "US 100"
+                              "s": "NASDAQ:QQQ",
+                              "d": "Nasdaq 100 ETF"
                             },
                             {
-                              "s": "FOREXCOM:DJI",
-                              "d": "Dow 30"
+                              "s": "AMEX:DIA",
+                              "d": "Dow Jones ETF"
                             },
                             {
-                              "s": "INDEX:NKY",
-                              "d": "Nikkei 225"
+                              "s": "AMEX:IWM",
+                              "d": "Russell 2000 ETF"
                             },
                             {
                               "s": "INDEX:DEU40",
                               "d": "DAX Index"
                             },
                             {
-                              "s": "FOREXCOM:UKXGBP",
-                              "d": "UK 100"
+                              "s": "INDEX:NKY",
+                              "d": "Nikkei 225"
                             }
                           ],
                           "originalTitle": "Indices"
@@ -241,27 +249,27 @@ export const TradingViewIntegration = () => {
                           "symbols": [
                             {
                               "s": "CME_MINI:ES1!",
-                              "d": "S&P 500"
+                              "d": "S&P 500 Futures"
                             },
                             {
                               "s": "CME:6E1!",
-                              "d": "Euro"
+                              "d": "Euro Futures"
                             },
                             {
                               "s": "COMEX:GC1!",
-                              "d": "Gold"
+                              "d": "Gold Futures"
                             },
                             {
                               "s": "NYMEX:CL1!",
-                              "d": "Crude Oil"
+                              "d": "Crude Oil Futures"
                             },
                             {
                               "s": "NYMEX:NG1!",
-                              "d": "Natural Gas"
+                              "d": "Natural Gas Futures"
                             },
                             {
                               "s": "CBOT:ZC1!",
-                              "d": "Corn"
+                              "d": "Corn Futures"
                             }
                           ],
                           "originalTitle": "Futures"
