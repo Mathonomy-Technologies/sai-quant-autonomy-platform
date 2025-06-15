@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -47,6 +46,7 @@ export const StrategyManagement = () => {
   ]);
 
   const [selectedStrategy, setSelectedStrategy] = useState<Strategy | null>(null);
+  const [activeTab, setActiveTab] = useState("strategies");
   const [isCreating, setIsCreating] = useState(false);
   const [newStrategy, setNewStrategy] = useState({
     name: '',
@@ -76,6 +76,12 @@ export const StrategyManagement = () => {
     { value: 'until_stopped', label: 'Until Manually Stopped' }
   ];
 
+  const handleCreateNewStrategy = () => {
+    setIsCreating(true);
+    setActiveTab("create");
+    console.log('Create new strategy button clicked');
+  };
+
   const handleSaveStrategy = () => {
     if (!newStrategy.name || !newStrategy.pineScript) return;
 
@@ -104,7 +110,20 @@ export const StrategyManagement = () => {
       duration: '1_day'
     });
     setIsCreating(false);
+    setActiveTab("strategies");
     console.log('Strategy saved:', strategy);
+  };
+
+  const handleCancelCreate = () => {
+    setIsCreating(false);
+    setNewStrategy({
+      name: '',
+      pineScript: '',
+      maxAmount: 5000,
+      timeframe: '1h',
+      duration: '1_day'
+    });
+    setActiveTab("strategies");
   };
 
   const toggleStrategyActive = (strategyId: string) => {
@@ -128,14 +147,14 @@ export const StrategyManagement = () => {
               <Code className="h-5 w-5" />
               Strategy Management
             </span>
-            <Button onClick={() => setIsCreating(true)} disabled={isCreating}>
+            <Button onClick={handleCreateNewStrategy}>
               <Save className="h-4 w-4 mr-2" />
               Create New Strategy
             </Button>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="strategies" className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="strategies">My Strategies</TabsTrigger>
               <TabsTrigger value="create">Create Strategy</TabsTrigger>
@@ -224,7 +243,7 @@ export const StrategyManagement = () => {
             </TabsContent>
 
             <TabsContent value="create" className="mt-6">
-              {isCreating && (
+              {isCreating ? (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
@@ -302,21 +321,19 @@ export const StrategyManagement = () => {
                       <Save className="h-4 w-4 mr-2" />
                       Save Strategy
                     </Button>
-                    <Button variant="outline" onClick={() => setIsCreating(false)}>
+                    <Button variant="outline" onClick={handleCancelCreate}>
                       Cancel
                     </Button>
                   </div>
                 </div>
-              )}
-
-              {!isCreating && (
+              ) : (
                 <div className="text-center py-8">
                   <Code className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-lg font-medium mb-2">Create Your First Strategy</h3>
                   <p className="text-muted-foreground mb-4">
                     Import your TradingView Pine Script strategies and configure trading parameters
                   </p>
-                  <Button onClick={() => setIsCreating(true)}>
+                  <Button onClick={handleCreateNewStrategy}>
                     <Save className="h-4 w-4 mr-2" />
                     Create New Strategy
                   </Button>
