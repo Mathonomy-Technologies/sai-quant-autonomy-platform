@@ -2,6 +2,8 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UserMenu } from "@/components/layout/UserMenu";
+import { BrokerAccountManager } from "@/components/broker/BrokerAccountManager";
 import { PortfolioOverview } from "@/components/trading/PortfolioOverview";
 import { ActivePositions } from "@/components/trading/ActivePositions";
 import { TradingChart } from "@/components/trading/TradingChart";
@@ -22,7 +24,7 @@ const Dashboard = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">SaiQuant Trading Dashboard</h1>
+            <h1 className="text-3xl font-bold text-foreground">Veltrix Trading Dashboard</h1>
             <p className="text-muted-foreground">Autonomous Algo Trading Platform</p>
           </div>
           <div className="flex items-center gap-4">
@@ -30,14 +32,16 @@ const Dashboard = () => {
               <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
               <span className="text-sm text-muted-foreground">System Online</span>
             </div>
+            <UserMenu />
           </div>
         </div>
 
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="live" className="w-full">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="live">Live Trading</TabsTrigger>
             <TabsTrigger value="strategies">Strategies</TabsTrigger>
+            <TabsTrigger value="brokers">Brokers</TabsTrigger>
             <TabsTrigger value="charts">Live Charts</TabsTrigger>
             <TabsTrigger value="simulation">Simulation</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
@@ -81,6 +85,10 @@ const Dashboard = () => {
 
           <TabsContent value="strategies" className="mt-6">
             <StrategyManagement />
+          </TabsContent>
+
+          <TabsContent value="brokers" className="mt-6">
+            <BrokerAccountManager />
           </TabsContent>
 
           <TabsContent value="charts" className="mt-6">
