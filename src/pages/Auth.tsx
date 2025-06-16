@@ -1,24 +1,36 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, TrendingUp } from "lucide-react";
+import { Loader2, TrendingUp, CheckCircle } from "lucide-react";
 
 const Auth = () => {
   const { signIn, signUp, user, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     fullName: '',
   });
+
+  useEffect(() => {
+    // Check if user came from email verification
+    const type = searchParams.get('type');
+    const tokenHash = searchParams.get('token_hash');
+    
+    if (type === 'signup' && tokenHash) {
+      setSuccess('Email verified successfully! You can now sign in with your credentials.');
+    }
+  }, [searchParams]);
 
   if (loading) {
     return (
@@ -49,14 +61,14 @@ const Auth = () => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+    setSuccess(null);
 
     const { error } = await signUp(formData.email, formData.password, formData.fullName);
     
     if (error) {
       setError(error.message);
     } else {
-      setError(null);
-      alert('Check your email for verification link!');
+      setSuccess('Check your email for a verification link! After clicking the link, you can sign in with your credentials.');
     }
     setIsLoading(false);
   };
@@ -94,6 +106,15 @@ const Auth = () => {
                 <Alert className="mt-4 border-destructive">
                   <AlertDescription className="text-destructive">
                     {error}
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {success && (
+                <Alert className="mt-4 border-green-500">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <AlertDescription className="text-green-600">
+                    {success}
                   </AlertDescription>
                 </Alert>
               )}
