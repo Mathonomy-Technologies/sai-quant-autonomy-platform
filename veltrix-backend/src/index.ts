@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { createClient } from "@supabase/supabase-js";
 import aiStrategyRoute from "./routes/ai-strategy-generator.js";
+import strategyRoutes from './routes/strategies';
 
 dotenv.config();
 
