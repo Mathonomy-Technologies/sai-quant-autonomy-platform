@@ -13,6 +13,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/strategies', strategyRoutes);
+
 // Supabase init (still ready for future expansion)
 const supabase = createClient(
   process.env.SUPABASE_URL!,
