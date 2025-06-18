@@ -14,11 +14,13 @@ const port = process.env.PORT || 5000;
 // Validate required environment variables
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
   console.error("❌ Missing required Supabase environment variables");
+  console.error("Please ensure SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in your .env file");
   process.exit(1);
 }
 
 if (!process.env.OPENAI_API_KEY) {
   console.error("❌ Missing OPENAI_API_KEY environment variable");
+  console.error("Please add your OpenAI API key to the .env file");
   process.exit(1);
 }
 

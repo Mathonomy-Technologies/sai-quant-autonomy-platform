@@ -3,26 +3,26 @@
   "name": "veltrix-backend",
   "version": "1.0.0",
   "description": "Backend services for Veltrix Trading AI Platform",
-  "main": "src/index.ts",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --esm src/index.ts",
-    "start": "ts-node --esm src/index.ts",
+    "dev": "node --loader ts-node/esm src/index.ts",
+    "start": "node dist/index.js",
     "build": "tsc"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.5",
-    "express": "^4.18.2",
-    "dotenv": "^16.3.1",
-    "cors": "^2.8.5",
     "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "openai": "^4.24.0"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
     "@types/express": "^4.17.21",
-    "@types/node": "^20.4.2"
+    "@types/node": "^20.4.2",
+    "@types/cors": "^2.8.17",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.3"
   }
 }
