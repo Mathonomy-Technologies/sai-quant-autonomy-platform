@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Play, Pause, Settings, Code, DollarSign, Clock, Save, Edit, Trash2, Plus, History } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AIStrategyGenerator } from '@/components/ai/AIStrategyGenerator';
 
 interface Strategy {
   id: string;
@@ -296,8 +296,9 @@ export const StrategyManagement = () => {
           )}
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="strategies">My Strategies</TabsTrigger>
+              <TabsTrigger value="ai-generator">AI Generator</TabsTrigger>
               <TabsTrigger value="create">Create Strategy</TabsTrigger>
               <TabsTrigger value="parameters">Parameters</TabsTrigger>
             </TabsList>
@@ -370,6 +371,10 @@ export const StrategyManagement = () => {
                   </Card>
                 ))}
               </div>
+            </TabsContent>
+
+            <TabsContent value="ai-generator" className="mt-6">
+              <AIStrategyGenerator />
             </TabsContent>
 
             <TabsContent value="create" className="mt-6">
